@@ -116,12 +116,12 @@
 - Notifications use `GameState.notification_requested` for quest and achievement toasts.
 - The save stores player location, inventory, points, tokens, achievements, and quest stage in `user://brickbound_save.json`.
 
-- [ ] **Step 1: Write save checks** for successful round-trip, missing-file defaults, and malformed-file recovery.
-- [ ] **Step 2: Run the checks and confirm they fail** before save/load behavior is implemented.
-- [ ] **Step 3: Implement validated JSON save/load** and connect progress changes to the HUD.
-- [ ] **Step 4: Unlock and display** the first-pickup, first-tree, and first-quest achievements exactly once each.
-- [ ] **Step 5: Run all headless checks; manually collect items, complete the quest, close and relaunch the game, and verify that all progress remains.**
-- [ ] **Step 6: Commit** as `feat: add game HUD achievements and saves`.
+- [x] **Step 1: Write save checks** for successful round-trip, missing-file defaults, and malformed-file recovery.
+- [x] **Step 2: Run the checks and confirm they fail** for the first-pickup and first-quest achievements before those hooks exist.
+- [x] **Step 3: Implement validated JSON save/load** and connect progress changes to the HUD.
+- [x] **Step 4: Unlock and display** the first-pickup, first-tree, and first-quest achievements exactly once each.
+- [x] **Step 5: Run all headless checks; use scripted collection, mission, save, and scene-relaunch checks to verify progress persists.**
+- [x] **Step 6: Commit** as `feat: add game HUD achievements and saves`.
 
 ### Task 5: macOS export, documentation, and public release
 

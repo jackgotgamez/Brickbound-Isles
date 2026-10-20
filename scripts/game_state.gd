@@ -41,6 +41,7 @@ func try_complete_timber_quest() -> bool:
 	quest_stage = "completed"
 	points += TIMBER_QUEST_REWARD_POINTS
 	imagination_tokens += TIMBER_QUEST_REWARD_TOKENS
+	unlock_achievement("first_quest")
 	notification_requested.emit("Mission complete! +100 points and +10 Imagination Tokens.")
 	progress_changed.emit()
 	return true

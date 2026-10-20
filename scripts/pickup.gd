@@ -18,4 +18,5 @@ func collect_for(body: Node) -> void:
 		return
 	collected = true
 	GameState.collect_item(item_id, amount)
+	GameState.unlock_achievement("first_pickup")
 	queue_free()

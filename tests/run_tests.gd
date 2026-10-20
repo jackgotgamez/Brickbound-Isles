@@ -15,6 +15,7 @@ func _run() -> void:
 		"res://tests/game_state_test.gd",
 		"res://tests/scene_smoke_test.gd",
 		"res://tests/world_loop_test.gd",
+		"res://tests/progress_features_test.gd",
 	]:
 		var test_script: Script = load(test_path)
 		if test_script == null:
