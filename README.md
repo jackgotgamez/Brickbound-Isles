@@ -18,17 +18,17 @@ The first mission pays **100 points** and **10 Imagination Tokens**. The HUD sho
 
 ## Run from source
 
-Install Godot 4.7.2 and its matching export templates, then open `project.godot` in the Godot editor or run:
+Install Godot 4.7.2. Set `GODOT_BIN` to its executable (for example, `/Applications/Godot.app/Contents/MacOS/Godot`), then open `project.godot` in the editor or run:
 
 ```sh
-godot --path .
+"$GODOT_BIN" --path .
 ```
 
 Run the headless checks with:
 
 ```sh
-godot --headless --editor --path . --quit
-godot --headless --path . --script tests/run_tests.gd
+"$GODOT_BIN" --headless --editor --path . --quit
+"$GODOT_BIN" --headless --path . --script tests/run_tests.gd
 ```
 
 ## Build the macOS app and disk image
