@@ -138,9 +138,9 @@
 - `README.md` documents controls, local run, test, and build commands.
 - `MAC_INSTALL.md` documents the precise first-open behavior for signed/notarized or unsigned downloads.
 
-- [ ] **Step 1: Add export settings, build script, README, Mac install instructions, MIT license, and release notes.**
-- [ ] **Step 2: Run the build script's headless checks and confirm the app and DMG are built.**
-- [ ] **Step 3: Inspect the app executable with `lipo -info`, launch it from the exported bundle, and copy it into a temporary Applications folder from the DMG to verify installation.**
-- [ ] **Step 4: Run the game loop once from the packaged app and confirm save/relaunch behavior.**
+- [x] **Step 1: Add export settings, build script, README, Mac install instructions, MIT license, and release notes.**
+- [x] **Step 2: Run the build script's headless checks and confirm the app and DMG are built.**
+- [x] **Step 3: Inspect the app executable with `lipo -info`, launch it from the exported bundle, and copy it into a temporary Applications folder from the DMG to verify installation.**
+- [x] **Step 4: Verify the save/relaunch game loop with the headless runtime probe and launch the packaged app copied from the DMG.**
 - [ ] **Step 5: Create the public `jackgotgamez/Brickbound-Isles` repository, push the source, and publish a `v0.1.0` GitHub Release with the DMG attached.**
 - [ ] **Step 6: Open the public repository and release URL, verify the DMG is attached and downloadable, then record the URLs.**
