@@ -18,9 +18,10 @@ The first mission pays **100 points** and **10 Imagination Tokens**. The HUD sho
 
 ## Run from source
 
-Install Godot 4.7.2. Set `GODOT_BIN` to its executable (for example, `/Applications/Godot.app/Contents/MacOS/Godot`), then open `project.godot` in the editor or run:
+Install Godot 4.7.2, set `GODOT_BIN` to its executable, then open `project.godot` in the editor or run:
 
 ```sh
+export GODOT_BIN="/Applications/Godot.app/Contents/MacOS/Godot"
 "$GODOT_BIN" --path .
 ```
 
