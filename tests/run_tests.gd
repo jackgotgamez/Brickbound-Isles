@@ -10,12 +10,21 @@ func _run() -> void:
 		quit(1)
 		return
 
-	var errors: Array[String] = preload("res://tests/game_state_test.gd").new().run(state)
-	if errors.is_empty():
-		print("PASS game_state_test")
-		quit(0)
-		return
+	var all_errors: Array[String] = []
+	for test_path: String in [
+		"res://tests/game_state_test.gd",
+		"res://tests/scene_smoke_test.gd",
+	]:
+		var test_script: Script = load(test_path)
+		if test_script == null:
+			all_errors.append("Test script is missing: %s" % test_path)
+			continue
+		var test_errors: Array[String] = test_script.new().run(state)
+		if test_errors.is_empty():
+			print("PASS %s" % test_path.get_file().get_basename())
+		else:
+			all_errors.append_array(test_errors)
 
-	for message: String in errors:
+	for message: String in all_errors:
 		push_error(message)
-	quit(1)
+	quit(1 if not all_errors.is_empty() else 0)
