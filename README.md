@@ -27,6 +27,7 @@ godot --path .
 Run the headless checks with:
 
 ```sh
+godot --headless --editor --path . --quit
 godot --headless --path . --script tests/run_tests.gd
 ```
 
