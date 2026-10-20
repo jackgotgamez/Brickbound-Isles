@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_pickup"]
+
+[sub_resource type="SphereShape3D" id="SphereShape_collect"]
+radius = 0.95
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_timber"]
+top_radius = 0.32
+bottom_radius = 0.42
+height = 0.38
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_wood"]
+albedo_color = Color(0.67, 0.37, 0.16, 1)
+roughness = 0.63
+
+[node name="TimberPickup" type="Area3D"]
+script = ExtResource("1_pickup")
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollectionArea" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape_collect")
+
+[node name="Brick" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.42, 0)
+mesh = SubResource("CylinderMesh_timber")
+surface_material_override/0 = SubResource("Material_wood")

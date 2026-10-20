@@ -3,6 +3,8 @@ extends Node3D
 
 const TERRAIN_SEGMENTS := 56
 const ISLAND_RADIUS := 52.0
+const TREE_SCENE: PackedScene = preload("res://scenes/tree.tscn")
+const QUEST_GIVER_SCENE: PackedScene = preload("res://scenes/quest_giver.tscn")
 
 var _built := false
 
@@ -18,6 +20,7 @@ func build(parent: Node3D) -> void:
 	_add_village_paths(parent)
 	_add_village(parent)
 	_add_forest(parent)
+	_add_quest_giver(parent)
 	_add_landmark(parent)
 	_add_rock_clusters(parent)
 
@@ -55,7 +58,18 @@ func _add_terrain(parent: Node3D) -> void:
 	land.add_child(visual)
 	var collider := CollisionShape3D.new()
 	collider.name = "TerrainCollision"
-	collider.shape = terrain_mesh.create_trimesh_shape()
+	var heightmap := HeightMapShape3D.new()
+	heightmap.map_width = TERRAIN_SEGMENTS + 1
+	heightmap.map_depth = TERRAIN_SEGMENTS + 1
+	var height_data := PackedFloat32Array()
+	for z_index: int in range(TERRAIN_SEGMENTS + 1):
+		for x_index: int in range(TERRAIN_SEGMENTS + 1):
+			var x := -ISLAND_RADIUS + float(x_index) * step
+			var z := -ISLAND_RADIUS + float(z_index) * step
+			height_data.append(_height_at(Vector2(x, z)) / step)
+	heightmap.map_data = height_data
+	collider.shape = heightmap
+	collider.scale = Vector3.ONE * step
 	land.add_child(collider)
 	parent.add_child(land)
 
@@ -137,43 +151,21 @@ func _add_forest(parent: Node3D) -> void:
 		var angle := TAU * float(index) / 29.0
 		var radius := 24.0 + float(index % 5) * 2.3
 		var point := Vector2(cos(angle) * radius, sin(angle) * radius)
-		var tree := Node3D.new()
+		var tree: TreeResource = TREE_SCENE.instantiate()
 		tree.name = "PineTree_%02d" % index
 		tree.position = Vector3(point.x, _height_at(point), point.y)
+		tree.rotation.y = angle * 0.4
+		var tree_scale := 0.82 + float(index % 4) * 0.08
+		tree.scale = Vector3.ONE * tree_scale
 		parent.add_child(tree)
-		var trunk_height := 2.5 + float(index % 3) * 0.35
-		var trunk_mesh := CylinderMesh.new()
-		trunk_mesh.top_radius = 0.18
-		trunk_mesh.bottom_radius = 0.28
-		trunk_mesh.height = trunk_height
-		trunk_mesh.radial_segments = 8
-		trunk_mesh.material = _material(Color(0.43, 0.27, 0.13, 1))
-		var trunk := MeshInstance3D.new()
-		trunk.name = "Trunk"
-		trunk.position.y = trunk_height * 0.5
-		trunk.mesh = trunk_mesh
-		tree.add_child(trunk)
-		var crown_mesh := SphereMesh.new()
-		crown_mesh.radius = 1.05 + float(index % 4) * 0.11
-		crown_mesh.height = crown_mesh.radius * 2.15
-		crown_mesh.radial_segments = 9
-		crown_mesh.rings = 5
-		crown_mesh.material = _material(Color(0.13 + float(index % 4) * 0.025, 0.43, 0.25, 1))
-		var crown := MeshInstance3D.new()
-		crown.name = "Crown"
-		crown.position.y = trunk_height + 0.45
-		crown.mesh = crown_mesh
-		tree.add_child(crown)
-		var trunk_body := StaticBody3D.new()
-		trunk_body.name = "TrunkCollision"
-		var trunk_shape := CollisionShape3D.new()
-		var cylinder_shape := CylinderShape3D.new()
-		cylinder_shape.radius = 0.32
-		cylinder_shape.height = trunk_height
-		trunk_shape.shape = cylinder_shape
-		trunk_shape.position.y = trunk_height * 0.5
-		trunk_body.add_child(trunk_shape)
-		tree.add_child(trunk_body)
+
+func _add_quest_giver(parent: Node3D) -> void:
+	var giver: QuestGiver = QUEST_GIVER_SCENE.instantiate()
+	giver.name = "Mira"
+	var point := Vector2(2.1, 1.6)
+	giver.position = Vector3(point.x, _height_at(point), point.y)
+	giver.rotation.y = deg_to_rad(145.0)
+	parent.add_child(giver)
 
 func _add_landmark(parent: Node3D) -> void:
 	var tower := Node3D.new()

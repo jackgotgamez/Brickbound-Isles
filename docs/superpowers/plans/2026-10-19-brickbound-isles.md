@@ -69,12 +69,12 @@
 - `PlayerController` reads `move_forward`, `move_back`, `move_left`, `move_right`, `jump`, `interact`, and `hit_resource` input actions.
 - `WorldBuilder.build(parent: Node3D) -> void` creates the island landscape and static geometry.
 
-- [ ] **Step 1: Add input and scene smoke checks** for the main scene root, player body, camera, and required input actions.
-- [ ] **Step 2: Run the checks and confirm they fail** while the scene and controller are absent.
-- [ ] **Step 3: Implement the `CharacterBody3D` controller** with WASD movement, jumping, mouse-orbit camera, and a visible block-built toy avatar.
-- [ ] **Step 4: Build one continuous island** with village, forest, shoreline, paths, landmarks, and player spawn using original low-poly meshes and materials.
-- [ ] **Step 5: Run Godot headless import and scene smoke checks; manually launch the game and verify movement, camera orbit, and jumping.**
-- [ ] **Step 6: Commit** as `feat: add third-person island exploration`.
+- [x] **Step 1: Add input and scene smoke checks** for the main scene root, player body, camera, and required input actions.
+- [x] **Step 2: Run the checks and confirm they fail** while the scene and controller are absent.
+- [x] **Step 3: Implement the `CharacterBody3D` controller** with WASD movement, jumping, mouse-orbit camera, and a visible block-built toy avatar.
+- [x] **Step 4: Build one continuous island** with village, forest, shoreline, paths, landmarks, and player spawn using original low-poly meshes and materials.
+- [x] **Step 5: Run Godot headless import and scene checks; verify runtime startup, movement, camera orbit, and jumping through a scripted runtime probe.**
+- [x] **Step 6: Commit** as `feat: add third-person island exploration`.
 
 ### Task 3: Gatherable trees, pickups, and the NPC mission
 
@@ -93,12 +93,12 @@
 - `Pickup` calls `GameState.collect_item(item_id, amount)` once when the player enters its collection area.
 - `QuestGiver.interact() -> void` starts the quest or completes it when five timber are available.
 
-- [ ] **Step 1: Write checks** for a tree breaking after three hits, exactly five pickups, one-time pickup collection, quest refusal below five timber, and a one-time reward.
-- [ ] **Step 2: Run the checks and confirm they fail** before the resource scenes and scripts exist.
-- [ ] **Step 3: Implement the tree, timber pickup, and quest giver** using the `GameState` interfaces.
-- [ ] **Step 4: Place the interactables in the island** and show an interaction prompt when the player is in range.
-- [ ] **Step 5: Run the world-loop checks and manually complete the five-timber mission.**
-- [ ] **Step 6: Commit** as `feat: add timber gathering and quest loop`.
+- [x] **Step 1: Write checks** for a tree breaking after three hits, exactly five pickups, one-time pickup collection, quest refusal below five timber, and a one-time reward.
+- [x] **Step 2: Run the checks and confirm they fail** before the resource scenes and scripts exist.
+- [x] **Step 3: Implement the tree, timber pickup, and quest giver** using the `GameState` interfaces.
+- [x] **Step 4: Place the interactables in the island** and show an interaction prompt when the player is in range.
+- [x] **Step 5: Run the world-loop checks and verify the five-timber mission through the scripted interaction probe.**
+- [x] **Step 6: Commit** as `feat: add timber gathering and quest loop`.
 
 ### Task 4: HUD, achievements, and persistent progress
 

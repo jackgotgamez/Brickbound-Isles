@@ -13,13 +13,15 @@ const INTERACTION_DISTANCE := 3.6
 
 var camera_pitch := deg_to_rad(-13.0)
 var _position_update_time := 0.0
+var _prompt_target: Node3D
 
 func _ready() -> void:
+	add_to_group("player")
 	camera_pivot.rotation.x = camera_pitch
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion:
 		camera_pivot.rotation.y -= event.relative.x * MOUSE_SENSITIVITY
 		camera_pitch = clampf(camera_pitch - event.relative.y * MOUSE_SENSITIVITY, deg_to_rad(-38.0), deg_to_rad(18.0))
 		camera_pivot.rotation.x = camera_pitch
@@ -40,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_SPEED
+		jump()
 
 	var move_input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := camera_pivot.global_basis * Vector3(move_input.x, 0.0, move_input.y)
@@ -52,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	if direction.length_squared() > 0.01:
 		_face_direction(direction, delta)
 	move_and_slide()
+	_update_interaction_prompt()
 
 	_position_update_time += delta
 	if _position_update_time >= 0.5:
@@ -63,6 +66,10 @@ func _face_direction(direction: Vector3, delta: float) -> void:
 	var target_yaw := atan2(-direction.x, -direction.z)
 	rotation.y = lerp_angle(rotation.y, target_yaw, minf(TURN_SPEED * delta, 1.0))
 	camera_pivot.rotation.y = wrapf(world_camera_yaw - rotation.y, -PI, PI)
+
+func jump() -> void:
+	if is_on_floor():
+		velocity.y = JUMP_SPEED
 
 func _try_interact() -> void:
 	var target := _nearest_node_in_group("interactables")
@@ -86,3 +93,17 @@ func _nearest_node_in_group(group_name: String) -> Node3D:
 			nearest = target
 			nearest_distance = distance
 	return nearest
+
+func _update_interaction_prompt() -> void:
+	var resource := _nearest_node_in_group("resources")
+	var interactable := _nearest_node_in_group("interactables")
+	var nearest := resource
+	if nearest == null or (interactable != null and global_position.distance_to(interactable.global_position) < global_position.distance_to(nearest.global_position)):
+		nearest = interactable
+	if nearest == _prompt_target:
+		return
+	if _prompt_target != null and is_instance_valid(_prompt_target) and _prompt_target.has_method("set_prompt_visible"):
+		_prompt_target.call("set_prompt_visible", false)
+	_prompt_target = nearest
+	if _prompt_target != null and _prompt_target.has_method("set_prompt_visible"):
+		_prompt_target.call("set_prompt_visible", true)
