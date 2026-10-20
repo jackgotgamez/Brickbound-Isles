@@ -142,5 +142,5 @@
 - [x] **Step 2: Run the build script's headless checks and confirm the app and DMG are built.**
 - [x] **Step 3: Inspect the app executable with `lipo -info`, launch it from the exported bundle, and copy it into a temporary Applications folder from the DMG to verify installation.**
 - [x] **Step 4: Verify the save/relaunch game loop with the headless runtime probe and launch the packaged app copied from the DMG.**
-- [ ] **Step 5: Create the public `jackgotgamez/Brickbound-Isles` repository, push the source, and publish a `v0.1.0` GitHub Release with the DMG attached.**
-- [ ] **Step 6: Open the public repository and release URL, verify the DMG is attached and downloadable, then record the URLs.**
+- [x] **Step 5: Create the public `jackgotgamez/Brickbound-Isles` repository, push the source, and publish a `v0.1.0` GitHub Release with the DMG attached.**
+- [x] **Step 6: Verify the public repository and release; downloaded the DMG directly from GitHub and confirmed its SHA-256.** Repository: https://github.com/jackgotgamez/Brickbound-Isles. Release: https://github.com/jackgotgamez/Brickbound-Isles/releases/tag/v0.1.0.
